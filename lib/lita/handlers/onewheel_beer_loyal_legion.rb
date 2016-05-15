@@ -60,7 +60,7 @@ module Lita
         Lita.logger.debug 'get_source started'
         unless (response = redis.get('page_response'))
           Lita.logger.info 'No cached result found, fetching.'
-          response = RestClient.get('http://loyallegionbar.com/menu')
+          response = RestClient.get('http://loyallegionpdx.com/taplist')
           redis.setex('page_response', 1800, response)
         end
         parse_response response
