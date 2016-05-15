@@ -42,14 +42,14 @@ module Lita
             help: {'tapslow' => 'Show me the highest abv keg.'}
 
       def send_response(tap, datum, response)
-        reply = "loyallegion tap #{tap}) #{get_tap_type_text(datum[:type])}"
+        reply = "Loyal Legion tap #{tap}) #{get_tap_type_text(datum[:type])}"
         # reply += "#{datum[:brewery]} "
-        reply += "#{datum[:name]} "
+        reply += "#{datum[:name]}"
         # reply += "- #{datum[:desc]}, "
         # reply += "Served in a #{datum[1]['glass']} glass.  "
         # reply += "#{datum[:remaining]}"
-        reply += "#{datum[:abv]}%, "
-        reply += "$#{datum[:price].to_s.sub '.0', ''}"
+        # reply += "#{datum[:abv]}%, "
+        # reply += "$#{datum[:price].to_s.sub '.0', ''}"
 
         Lita.logger.info "send_response: Replying with #{reply}"
 
@@ -73,30 +73,23 @@ module Lita
         Lita.logger.debug 'parse_response started.'
         gimme_what_you_got = {}
         noko = Nokogiri.HTML response
-        noko.css('table.table tbody tr').each_with_index do |beer_node, index|
+
+        noko.css('article.tap-item').each do |beer_node|
           # gimme_what_you_got
-          tap_name = (index + 1).to_s
+          tap_name = beer_node.css('small.tapnum').children.to_s.sub 'Tap#', ''
+          next if tap_name.empty?
 
-          brewery = beer_node.css('td')[2].children.to_s
-          beer_name = beer_node.css('td')[0].children.text.to_s
-          beer_type = beer_name.match(/\s*-\s*\w+$/).to_s
-          beer_type.sub! /\s+-\s+/, ''
-          # beer_desc = get_beer_desc(beer_node)
-          abv = beer_node.css('td')[4].children.to_s
-          full_text_search = "#{brewery} #{beer_name.to_s.gsub /(\d+|')/, ''}"  # #{beer_desc.to_s.gsub /\d+\.*\d*%*/, ''}
-          price_node = beer_node.css('td')[1].children.to_s
-          price = (price_node.sub /\$/, '').to_f
-
-          Lita.logger.debug "Price #{price}"
+          beer_name = beer_node.css('div.tap-content h1').children.to_s.strip
+          full_text_search = beer_name
 
           gimme_what_you_got[tap_name] = {
           #     type: tap_type,
           #     remaining: remaining,
-              brewery: brewery.to_s,
+          #     brewery: brewery.to_s,
               name: beer_name.to_s,
-              desc: beer_type.to_s,
-              abv: abv.to_f,
-              price: price,
+              # desc: beer_type.to_s,
+              # abv: abv.to_f,
+              # price: price,
               search: full_text_search
           }
         end
