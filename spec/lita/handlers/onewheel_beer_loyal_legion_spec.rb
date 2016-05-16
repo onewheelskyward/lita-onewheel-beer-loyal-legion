@@ -39,117 +39,104 @@ describe Lita::Handlers::OnewheelBeerLoyalLegion, lita_handler: true do
 
   it 'gets nitro' do
     send_command 'loyallegion nitro'
-    expect(replies.last).to eq('loyallegion tap 30) Nitro- Stout 4.1%, $4')
+    expect(replies.last).to eq('Loyal Legion tap 70) Alameda Black Bear Nitro Stout, 6.8%, 55.0 IBU, $6.00')
   end
 
   it 'searches for ipa' do
     send_command 'loyallegion ipa'
-    expect(replies.last).to eq('loyallegion tap 50) WFO - IPA 7.5%, $5')
+    expect(replies.last).to eq('Loyal Legion tap 90) Ground Breaker IPA #5, 5.6%, 60.0 IBU, $5.00')
   end
-
-  # it 'searches for brown' do
-  #   send_command 'loyallegion brown'
-  #   expect(replies.last).to eq("Bailey's tap 22) GoodLife 29er - India Brown Ale 6.0%, 10oz - $3 | 20oz - $5 | 32oz Crowler - $8, 37% remaining")
-  # end
 
   it 'searches for abv >9%' do
     send_command 'loyallegion >9%'
-    expect(replies.count).to eq(8)
-    expect(replies[0]).to eq('loyallegion tap 2) Armored Fist - Big,Black&Hoppy 10.0%, $5')
-    expect(replies[1]).to eq('loyallegion tap 3) Barrel Aged Old Thunderpussy 10.8%, $5')
-    expect(replies.last).to eq('loyallegion tap 46) Sump - Imp Coffee Stout 10.5%, $5')
+    expect(replies.count).to eq(6)
+    expect(replies[0]).to eq('Loyal Legion tap 20) Ordnance Double Recoil Double IPA, 10.5%, 80.0 IBU, $6.00')
   end
 
   it 'searches for abv > 9%' do
     send_command 'loyallegion > 9%'
-    expect(replies.count).to eq(8)
-    expect(replies[0]).to eq('loyallegion tap 2) Armored Fist - Big,Black&Hoppy 10.0%, $5')
-    expect(replies[1]).to eq('loyallegion tap 3) Barrel Aged Old Thunderpussy 10.8%, $5')
-    expect(replies.last).to eq('loyallegion tap 46) Sump - Imp Coffee Stout 10.5%, $5')
+    expect(replies.count).to eq(6)
+    expect(replies[0]).to eq('Loyal Legion tap 20) Ordnance Double Recoil Double IPA, 10.5%, 80.0 IBU, $6.00')
   end
 
   it 'searches for abv >= 9%' do
     send_command 'loyallegion >= 9%'
-    expect(replies.count).to eq(10)
-    expect(replies[0]).to eq('loyallegion tap 2) Armored Fist - Big,Black&Hoppy 10.0%, $5')
-    expect(replies.last).to eq('loyallegion tap 46) Sump - Imp Coffee Stout 10.5%, $5')
+    expect(replies.count).to eq(8)
+    expect(replies[0]).to eq('Loyal Legion tap 20) Ordnance Double Recoil Double IPA, 10.5%, 80.0 IBU, $6.00')
   end
 
   it 'searches for abv <4.1%' do
     send_command 'loyallegion <4.1%'
-    expect(replies.count).to eq(2)
-    expect(replies[0]).to eq('loyallegion tap 15) Grapefruit Radler 2.5%, $5')
-    expect(replies.last).to eq('loyallegion tap 38) Prairie-Vous Francais - Saison   Just Tapped 3.9%, $5')
+    expect(replies.count).to eq(3)
+    expect(replies[0]).to eq('Loyal Legion tap 51) Hopworks Evelyn Radshine Imp IPA Radler, 4.0%, 0.0 IBU, $6.00')
   end
 
   it 'searches for abv <= 4%' do
     send_command 'loyallegion <= 4%'
-    expect(replies.count).to eq(2)
-    expect(replies[0]).to eq('loyallegion tap 15) Grapefruit Radler 2.5%, $5')
-    expect(replies.last).to eq('loyallegion tap 38) Prairie-Vous Francais - Saison   Just Tapped 3.9%, $5')
+    expect(replies.count).to eq(3)
+    expect(replies[0]).to eq('Loyal Legion tap 51) Hopworks Evelyn Radshine Imp IPA Radler, 4.0%, 0.0 IBU, $6.00')
   end
 
   it 'searches for prices >$5' do
     send_command 'loyallegion >$5'
-    expect(replies.count).to eq(11)
-    expect(replies[0]).to eq('loyallegion tap 4) Blind Pig - IPA 6.1%, $6')
-    expect(replies[1]).to eq('loyallegion tap 21) Kristallweissbier 5.4%, $6')
+    expect(replies.count).to eq(77)
+    expect(replies[1]).to eq('Loyal Legion tap 2) Block 15 Sticky Hands Imp. IPA, 8.1%, 110.0 IBU, $6.00')
   end
 
   it 'searches for prices >=$6' do
     send_command 'loyallegion >=$6'
-    expect(replies.count).to eq(11)
-    expect(replies[0]).to eq('loyallegion tap 4) Blind Pig - IPA 6.1%, $6')
+    expect(replies.count).to eq(77)
+    expect(replies[0]).to eq('Loyal Legion tap 1) Coldfire Spring IPA, 6.9%, 85.0 IBU, $6.00')
   end
 
-  it 'searches for prices > $6' do
-    send_command 'loyallegion > $6'
-    expect(replies.count).to eq(3)
-    expect(replies[0]).to eq('loyallegion tap 29) Nitro- Shake - Choco Porter 5.9%, $8')
+  it 'searches for prices > $5.99' do
+    send_command 'loyallegion > $5.99'
+    expect(replies.count).to eq(77)
+    expect(replies[0]).to eq('Loyal Legion tap 1) Coldfire Spring IPA, 6.9%, 85.0 IBU, $6.00')
   end
 
   it 'searches for prices <$4.1' do
     send_command 'loyallegion <$4.1'
-    expect(replies.count).to eq(4)
-    expect(replies[0]).to eq('loyallegion tap 8) Cheap, cold 4.7%, $3')
+    expect(replies.count).to eq(1)
+    expect(replies[0]).to eq('Loyal Legion tap 25) Full Sail Session Lager $3 Pint, 5.1%, 18.0 IBU, $3.00')
   end
 
   it 'searches for prices < $4.01' do
     send_command 'loyallegion < $4.01'
-    expect(replies.count).to eq(4)
-    expect(replies[0]).to eq('loyallegion tap 8) Cheap, cold 4.7%, $3')
+    expect(replies.count).to eq(1)
+    expect(replies[0]).to eq('Loyal Legion tap 25) Full Sail Session Lager $3 Pint, 5.1%, 18.0 IBU, $3.00')
   end
 
   it 'searches for prices <= $4.00' do
     send_command 'loyallegion <= $4.00'
-    expect(replies.count).to eq(4)
-    expect(replies[0]).to eq('loyallegion tap 8) Cheap, cold 4.7%, $3')
+    expect(replies.count).to eq(1)
+    expect(replies[0]).to eq('Loyal Legion tap 25) Full Sail Session Lager $3 Pint, 5.1%, 18.0 IBU, $3.00')
   end
 
   it 'runs a random beer through' do
     send_command 'loyallegion roulette'
     expect(replies.count).to eq(1)
-    expect(replies.last).to include('loyallegion tap')
+    expect(replies.last).to include('Loyal Legion tap')
   end
 
   it 'runs a random beer through' do
     send_command 'loyallegion random'
     expect(replies.count).to eq(1)
-    expect(replies.last).to include('loyallegion tap')
+    expect(replies.last).to include('Loyal Legion tap')
   end
 
   it 'searches with a space' do
-    send_command 'loyallegion cider riot'
-    expect(replies.last).to eq('loyallegion tap 10) Cider- NeverGiveAnInch -Rosé  6.9%, $5')
+    send_command 'loyallegion chocolate'
+    expect(replies.last).to eq('Loyal Legion tap 46) Three Creeks 10 Pine Chocolate Porter, 8.4%, 26.0 IBU, $6.00')
   end
 
   it 'displays low abv' do
     send_command 'loyallegionabvhigh'
-    expect(replies.last).to eq('loyallegion tap 31) Notorious - IIIPA 11.5%, $5')
+    expect(replies.last).to eq('Loyal Legion tap 45) Baerlic Old Blood And Guts Barleywine, 11.4%, 100.0 IBU, $6.00')
   end
 
   it 'displays high abv' do
     send_command 'loyallegionabvlow'
-    expect(replies.last).to eq('loyallegion tap 15) Grapefruit Radler 2.5%, $5')
+    expect(replies.last).to eq('Loyal Legion tap 92) Coldfire Berliner Weiss, 3.6%, 7.0 IBU, $6.00')
   end
 end
