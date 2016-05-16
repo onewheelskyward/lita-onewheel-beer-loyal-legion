@@ -48,8 +48,9 @@ module Lita
         # reply += "- #{datum[:desc]}, "
         # reply += "Served in a #{datum[1]['glass']} glass.  "
         # reply += "#{datum[:remaining]}"
-        # reply += "#{datum[:abv]}%, "
-        # reply += "$#{datum[:price].to_s.sub '.0', ''}"
+        reply += "#{datum[:abv]}%, "
+        reply += "#{datum[:ibu]} IBU, "
+        reply += "$#{datum[:price].to_s}"
 
         Lita.logger.info "send_response: Replying with #{reply}"
 
@@ -80,16 +81,28 @@ module Lita
           next if tap_name.empty?
 
           beer_name = beer_node.css('div.tap-content h1').children.to_s.strip
-          full_text_search = beer_name
+
+          greyout = beer_node.css('small.grayout').children.to_s
+          greyedouts = greyout.split /\|/
+          beer_type = greyedouts[0].strip
+          abv = greyedouts[1].match(/\d+\.*\d*/).to_s
+          if greyedouts[2]
+            ibu = greyedouts[2].match(/\d+/).to_s
+          end
+
+          price = beer_node.css('div.beer-price').children.first.to_s.strip.sub '$', ''
+
+          full_text_search = "#{beer_name} #{beer_type}"
 
           gimme_what_you_got[tap_name] = {
           #     type: tap_type,
           #     remaining: remaining,
           #     brewery: brewery.to_s,
               name: beer_name.to_s,
-              # desc: beer_type.to_s,
-              # abv: abv.to_f,
-              # price: price,
+              desc: beer_type.to_s,
+              abv: abv.to_f,
+              ibu: ibu.to_f,
+              price: price,
               search: full_text_search
           }
         end
