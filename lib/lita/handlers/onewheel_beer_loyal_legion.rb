@@ -44,7 +44,7 @@ module Lita
       def send_response(tap, datum, response)
         reply = "Loyal Legion tap #{tap}) #{get_tap_type_text(datum[:type])}"
         # reply += "#{datum[:brewery]} "
-        reply += "#{datum[:name]}"
+        reply += "#{datum[:name]}, "
         # reply += "- #{datum[:desc]}, "
         # reply += "Served in a #{datum[1]['glass']} glass.  "
         # reply += "#{datum[:remaining]}"

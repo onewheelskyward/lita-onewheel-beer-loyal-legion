@@ -28,13 +28,13 @@ describe Lita::Handlers::OnewheelBeerLoyalLegion, lita_handler: true do
 
   it 'displays details for tap 4' do
     send_command 'loyallegion 4'
-    expect(replies.last).to eq('loyallegion tap 4) Blind Pig - IPA 6.1%, $6')
+    expect(replies.last).to eq('Loyal Legion tap 4) Coalition Space Fruit IPA, 7.0%, 50.0 IBU, $6.00')
   end
 
   it 'doesn\'t explode on 1' do
     send_command 'loyallegion 1'
     expect(replies.count).to eq(1)
-    expect(replies.last).to eq('loyallegion tap 1) Aktien Helles Lager 5.3%, $5')
+    expect(replies.last).to eq('Loyal Legion tap 1) Coldfire Spring IPA, 6.9%, 85.0 IBU, $6.00')
   end
 
   it 'gets nitro' do
