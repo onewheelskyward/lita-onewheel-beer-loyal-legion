@@ -9,37 +9,37 @@ module Lita
       route /^loyallegion$/i,
             :taps_list,
             command: true,
-            help: {'taps' => 'Display the current loyallegion Bar taps.'}
+            help: {'loyallegion' => 'Display the current loyallegion Bar taps.'}
 
       route /^loyallegion ([\w ]+)$/i,
             :taps_deets,
             command: true,
-            help: {'taps 4' => 'Display the tap 4 deets, including prices.'}
+            help: {'loyallegion 4' => 'Display the tap 4 deets, including prices.'}
 
       route /^loyallegion ([<>=\w.\s]+)%$/i,
             :taps_by_abv,
             command: true,
-            help: {'taps >4%' => 'Display beers over 4% ABV.'}
+            help: {'loyallegion >4%' => 'Display beers over 4% ABV.'}
 
       route /^loyallegion ([<>=\$\w.\s]+)$/i,
             :taps_by_price,
             command: true,
-            help: {'taps <$5' => 'Display beers under $5.'}
+            help: {'loyallegion <$5' => 'Display beers under $5.'}
 
       route /^loyallegion (roulette|random|rand|ran|ra|r)$/i,
             :taps_by_random,
             command: true,
-            help: {'taps roulette' => 'Can\'t decide?  Let me do it for you!'}
+            help: {'loyallegion roulette' => 'Can\'t decide?  Let me do it for you!'}
 
       route /^loyallegionabvlow$/i,
             :taps_low_abv,
             command: true,
-            help: {'tapslow' => 'Show me the lowest abv keg.'}
+            help: {'loyallegionabvlow' => 'Show me the lowest abv keg.'}
 
       route /^loyallegionabvhigh$/i,
             :taps_high_abv,
             command: true,
-            help: {'tapslow' => 'Show me the highest abv keg.'}
+            help: {'loyallegionabvhigh' => 'Show me the highest abv keg.'}
 
       def send_response(tap, datum, response)
         reply = "Loyal Legion tap #{tap}) #{get_tap_type_text(datum[:type])}"
